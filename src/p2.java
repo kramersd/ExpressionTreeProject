@@ -13,9 +13,19 @@ public class p2 {
         BinaryTree t = new BinaryTree(new TreeNode(""));
         t.build_expression_tree(input);
         TreeNode tn = t.getHead();
-        printTree(tn);
-       
+        // printTree(tn);
+        System.out.print("The inorder traversal is: ");
+        printInfix(tn);
+        System.out.println("\nThe output of the expression is: " + t.evaluate_expression_tree(input));
         reader.close();
+    }
+    
+    public static void printInfix(TreeNode tn) {
+    		if (tn != null) {
+    			printInfix(tn.getLeftChild());
+    			System.out.format("%s " , tn.getValue());
+    			printInfix(tn.getRightChild());
+    		}
     }
     
     public static void printTree(TreeNode t) {
@@ -25,7 +35,7 @@ public class p2 {
     			
     		}
     		if (t.getRightChild() != null) {
-    			System.out.format("%s: %s\n", "Right Child", t.getLeftChild().getValue());
+    			System.out.format("%s: %s\n", "Right Child", t.getRightChild().getValue());
     			
     		}
     		

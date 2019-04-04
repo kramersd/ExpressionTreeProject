@@ -31,7 +31,7 @@ public class BinaryTree implements ExpressionTree {
 	public void build_expression_tree(String str) {
 		
 		// Basic Error Checking
-		if ( str.equals(null) || (str.length()) == 0) {
+		if ( str == null || (str.length()) == 0) {
 			System.out.println("Expression String is undefined or empty\n");
 			return;
 		}
@@ -60,8 +60,8 @@ public class BinaryTree implements ExpressionTree {
 				// Set the new TreeNode's left and right children
 				TreeNode tLeft = (TreeNode)snLeft.getValue();
 				TreeNode tRight = (TreeNode)snRight.getValue();
-				nt.setLeftChild(tLeft);
-				nt.setRightChild(tRight);
+				nt.setLeftChild(tRight);
+				nt.setRightChild(tLeft);
 				
 				// Create a new StackNode with the TreeNode Value
 				StackNode sn = new StackNode(nt);
@@ -81,12 +81,13 @@ public class BinaryTree implements ExpressionTree {
 	}
 
 	@Override
-	public float evaluate_expression_tree(TreeNode tn) {
+	public double evaluate_expression_tree(String str) {
 		
 		// Basic Error Checking
-		if ( tn.equals(null) || (tn.getValue() == null)) {
-			System.out.println("Tree Node is undefined or empty\n");
-			return -1;
+		// Basic Error Checking
+		if ( str == null || (str.length()) == 0) {
+			System.out.println("Expression String is undefined or empty\n");
+			return -1.0;
 		}
 		return 0;
 	}
