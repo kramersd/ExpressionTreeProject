@@ -7,13 +7,12 @@ public class p2 {
     public static void main(String[] args) throws IOException { 
         BufferedReader reader =  
                    new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Please enter an input:");
-	    String input = reader.readLine();
+        
+        String input = reader.readLine();
         System.out.println("The input is: " + input);
         BinaryTree t = new BinaryTree(new TreeNode(""));
         t.build_expression_tree(input);
         TreeNode tn = t.getHead();
-        // printTree(tn);
         System.out.print("The inorder traversal is: ");
         printInfix(tn);
         System.out.println("\nThe output of the expression is: " + t.evaluate_expression_tree(input));
