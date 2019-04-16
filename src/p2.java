@@ -8,14 +8,18 @@ public class p2 {
         BufferedReader reader =  
                    new BufferedReader(new InputStreamReader(System.in));
         
-        String input = reader.readLine();
-        System.out.println("The input is: " + input);
-        BinaryTree t = new BinaryTree(new TreeNode(""));
-        t.build_expression_tree(input);
-        TreeNode tn = t.getHead();
-        System.out.print("The inorder traversal is: ");
-        printInfix(tn);
-        System.out.println("\nThe output of the expression is: " + t.evaluate_expression_tree(input));
+        // Loop through the input from the Buffered Reader
+        for (String input = reader.readLine(); input != null; input = reader.readLine()) {
+        		System.out.println("The input is: " + input);
+            BinaryTree t = new BinaryTree(new TreeNode(""));
+            t.build_expression_tree(input);
+            TreeNode tn = t.getHead();
+            System.out.print("The inorder traversal is: ");
+            printInfix(tn);
+            System.out.println("\nThe output of the expression is: " + t.evaluate_expression_tree());
+        }
+        
+        
         reader.close();
     }
     

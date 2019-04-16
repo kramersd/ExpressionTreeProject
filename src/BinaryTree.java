@@ -5,7 +5,6 @@ public class BinaryTree implements ExpressionTree {
 	private String operators = "*/+-";
 	private Stack stack;
 	
-	
 	public BinaryTree(TreeNode t) {
 		this.head = t;
 		this.setStack(new Stack(new StackNode("")));
@@ -25,6 +24,57 @@ public class BinaryTree implements ExpressionTree {
 
 	public void setStack(Stack stack) {
 		this.stack = stack;
+	}
+	
+	public String infixToPostfix(String str) {
+		
+		// Basic Error Checking
+		if (str.length() <= 0 || str.equals(null)) {
+			System.out.println("The provided String is null or empty");
+			return null;
+		}
+		
+		
+		
+		return "";
+	}
+	
+	private double eval_inorder_tree_traversal(TreeNode tn) {
+		double leftChildValue = 0.0;
+		double rightChildValue = 0.0;
+		String operator = "";
+		
+		// If the current node is an operator
+		if (operators.contains(tn.getValue())) {
+			
+			// Error Checking - Left and Right Children of an operator node
+			// cannot be undefined, else it is a malformed expression tree
+			if (tn.getLeftChild().equals(null)) {
+				System.out.println("The left child of an operator node is undefined");
+				return 0.0;
+			} else if(tn.getRightChild().equals(null)) {
+				System.out.println("The right child of an operator node is undefined");
+				return 0.0;
+			}
+			
+			// Get the value of the left and right child
+			leftChildValue = this.eval_inorder_tree_traversal(tn.getLeftChild());
+			rightChildValue = this.eval_inorder_tree_traversal(tn.getRightChild());
+			
+			// Get the current operator, perform the operation, return the result
+			operator = tn.getValue();
+			switch(operator) {
+				case "*": return leftChildValue * rightChildValue;
+				case "/": return leftChildValue / rightChildValue;
+				case "+": return leftChildValue + rightChildValue;
+				case "-": return leftChildValue - rightChildValue;
+			}
+		} 
+		// Else the current node is not an operator (it is an operand)
+		else {
+			return new Double(tn.getValue());
+		}
+		return 0.0;
 	}
 	
 	@Override
@@ -90,9 +140,23 @@ public class BinaryTree implements ExpressionTree {
 		TreeNode tn = (TreeNode)this.stack.pop().getValue();
 		this.head = tn;
 	}
-
+	
+	
+	
 	@Override
-	public double evaluate_expression_tree(String str) {
+	public double evaluate_expression_tree() {
+		
+		// Basic Error Checking
+		if (this.head.equals(null) ) {
+			System.out.println("Root TreeNode is null or undefined");
+			return -1.0;
+		}
+		
+		// Return value using private recursive helper function
+		return this.eval_inorder_tree_traversal(this.head);
+	}
+
+	public double stack_evaluate_expression_tree(String str) {
 		
 		// Basic Error Checking
 		if ( str.equals(null) || (str.length()) == 0) {
